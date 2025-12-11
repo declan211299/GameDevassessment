@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public static class CropManager
 {
@@ -7,13 +8,22 @@ public static class CropManager
 
     public static void RegisterCrop(Crop c)
     {
-        crops.Add(c);
+        if (!crops.Contains(c))
+            crops.Add(c);
     }
 
     public static void UnregisterCrop(Crop c)
     {
-        crops.Remove(c);
+        if (crops.Contains(c))
+            crops.Remove(c);
+
         Object.Destroy(c.gameObject);
+
+        if (crops.Count == 0)
+        {
+            Debug.Log("ALL CROPS LOST — GAME OVER");
+            SceneManager.LoadScene("start");
+        }
     }
 
     public static Crop GetClosestCrop(Vector3 pos)
@@ -23,6 +33,8 @@ public static class CropManager
 
         foreach (var c in crops)
         {
+            if (c == null) continue;
+
             float dist = Vector3.Distance(pos, c.transform.position);
             if (dist < minDist)
             {

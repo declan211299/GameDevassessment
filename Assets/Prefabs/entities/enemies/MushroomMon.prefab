@@ -97,8 +97,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ID: 1
-  maxHealth: 5
-  health: 5
+  maxHealth: 100
+  health: 100
   speed: 2
 --- !u!65 &8756905981067282588
 BoxCollider:

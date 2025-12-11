@@ -1,10 +1,10 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class WaveSpawner : MonoBehaviour
 {
-    public WaveData[] waves;
-
+    public WaveData[] waves;      // You will set this to 6 waves in Inspector
     public Transform[] spawnPoints;
 
     private int currentWave = 0;
@@ -19,6 +19,7 @@ public class WaveSpawner : MonoBehaviour
     {
         while (currentWave < waves.Length)
         {
+            Debug.Log("Starting Wave " + (currentWave + 1));
             yield return StartCoroutine(SpawnWave(waves[currentWave]));
 
             // Wait until all enemies are dead
@@ -26,6 +27,9 @@ public class WaveSpawner : MonoBehaviour
 
             currentWave++;
         }
+
+        Debug.Log("ALL WAVES COMPLETE — YOU WIN!");
+        SceneManager.LoadScene("start"); 
     }
 
     IEnumerator SpawnWave(WaveData wave)

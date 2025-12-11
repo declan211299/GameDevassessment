@@ -24,11 +24,16 @@ public class Shotgun : MonoBehaviour
 
     void Shoot()
     {
-        Debug.Log("Shoot() called");
+        
 
-        // Play muzzle flash
+        
+
+        // Force-reset muzzle flash
         if (muzzleFlash != null)
+        {
+            muzzleFlash.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
             muzzleFlash.Play();
+        }
 
         // Fire pellets
         for (int i = 0; i < pelletCount; i++)
@@ -44,6 +49,7 @@ public class Shotgun : MonoBehaviour
             }
         }
     }
+
 
     Vector3 SpreadDirection()
     {
